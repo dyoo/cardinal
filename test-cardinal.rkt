@@ -1,7 +1,8 @@
 #lang racket/base
 
 (require "cardinal.rkt"
-         rackunit)
+         rackunit
+         (for-syntax racket/base))
 
 (define-syntax (ck stx)
   (syntax-case stx ()
@@ -47,10 +48,10 @@
 (ck 80 "eighty")
 (ck 90 "ninety")
 (ck 100 "one hundred")
-(ck 101 "one hundred and one")
-(ck 102 "one hundred and two")
-(ck 110 "one hundred and ten")
-(ck 120 "one hundred and twenty")
+(ck 101 "one hundred one")
+(ck 102 "one hundred two")
+(ck 110 "one hundred ten")
+(ck 120 "one hundred twenty")
 (ck 200 "two hundred")
 (ck 300 "three hundred")
 (ck 400 "four hundred")
@@ -60,15 +61,18 @@
 (ck 800 "eight hundred")
 (ck 900 "nine hundred")
 (ck 1000 "one thousand")
-(ck 1001 "one thousand and one")
-(ck 1010 "one thousand and ten")
+(ck 1001 "one thousand one")
+(ck 1010 "one thousand ten")
 (ck 2000 "two thousand")
 (ck 10000 "ten thousand")
 (ck 11000 "eleven thousand")
 (ck 100000 "one hundred thousand")
 (ck 200000 "two hundred thousand")
 (ck 1000000 "one million")
+(ck 1200000 "one million two hundred thousand")
 (ck 2000000 "two million")
 (ck 999000 "nine hundred ninety-nine thousand")
+(ck 999999 "nine hundred ninety-nine thousand nine hundred ninety-nine")
+(ck 999999999 "nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine")
 (ck 1000000000 "one billion")
-(ck 1200000 "one million two hundred thousand")
+

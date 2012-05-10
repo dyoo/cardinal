@@ -5,11 +5,31 @@
 ;;
 ;; http://en.wikipedia.org/wiki/Names_of_numbers_in_English
 
+(provide number->cardinal)
+
+
 (define (number->cardinal n)
-  (small-number->cardinal n))
+  (cond
+   [(< n 1000)
+    (small-number->cardinal n)]
+   [else
+    (define this-mag (mag10 n))
+    (cond
+     [(> this-mag max-mag)
+      (error 'number->cardinal "~s too large to count" n)]
+     [else
+      (define s (quotient this-mag 3))
+      (define t (expt 10 (* 3 s)))
+      (if (= 0 (remainder n t))
+          (string-append (small-number->cardinal (quotient n t))
+                         " "
+                         (vector-ref scales s))
+          (string-append (small-number->cardinal (quotient n t))
+                         " " (vector-ref scales s)
+                         " " (number->cardinal (remainder n t))))])]))
+          
 
-
-;; Handles numbers between 0 and 99.
+;; Handles numbers between 0 and 999.
 (define (small-number->cardinal n)
   (cond
    [(< n 21)
@@ -20,8 +40,13 @@
         (string-append (vector-ref tens (quotient n 10))
                        "-"
                        (vector-ref small-cardinals (remainder n 10))))]
-
-
+   [(< n 1000)
+    (if (= 0 (remainder n 100))
+        (string-append (small-number->cardinal (quotient n 100))
+                   " hundred")
+        (string-append (small-number->cardinal (quotient n 100))
+                       " hundred "
+                       (small-number->cardinal (remainder n 100))))]))
 
 (define small-cardinals #("zero" "one" "two" "three" "four"
                           "five" "six" "seven" "eight" "nine" "ten"
@@ -35,16 +60,15 @@
                "ninety"))
 
 
-
 ;; http://www.mrob.com/pub/math/largenum.html
 (define scales
-  #("hundred"
-    "thousand"
-    "million"
-    "billion"
-    "trillion"
-    "quadrillion"
-    "quintillion"
+  #(""
+    "thousand"       ;; 10^3
+    "million"        ;; 10^6
+    "billion"        ;; 10^9
+    "trillion"       ;; 10^12
+    "quadrillion"    ;; 10^15
+    "quintillion"    ;; ...
     "sextillion"
     "septillion"
     "octillion"
@@ -61,4 +85,16 @@
     "novemdecillion"
     "vigintillion"))
 
-    
+
+
+;; Porduces the magnitude of a number in terms of powers of 10.
+(define (mag10 n)
+  (let loop ([n n]
+             [x 0])
+    (cond [(= 0 (quotient n 10))
+           x]
+          [else
+           (loop (quotient n 10)
+                 (add1 x))])))
+
+(define max-mag (* 3 (sub1 (vector-length scales))))

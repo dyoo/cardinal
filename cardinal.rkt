@@ -1,13 +1,33 @@
 #lang racket/base
 
+(require racket/contract)
+
 ;; A library for computing the English cardinal number string
 ;; representations.
 ;;
 ;; http://en.wikipedia.org/wiki/Names_of_numbers_in_English
 
-(provide number->cardinal)
+(provide
+
+ (contract-out
+  [number->cardinal [countable-number? . -> . string?]])
+ 
+ (rename-out [number->cardinal number->cardinal/uncontracted])
+
+ maximum-countable-cardinal-number)
 
 
+;; countable-number? any -> boolean
+(define (countable-number? n)
+  (and (exact-nonnegative-integer? n)
+       (<= n maximum-countable-cardinal-number)))
+
+
+;; number->cardinal: number -> string
+;; Converts the number to a string.
+;;
+;; TODO: we should do efficient string concatenation if profiling demands it.
+;;
 (define (number->cardinal n)
   (cond
    [(< n 1000)
@@ -99,3 +119,6 @@
                  (add1 x))])))
 
 (define max-mag (* 3 (vector-length scales)))
+
+(define maximum-countable-cardinal-number
+  (sub1 (expt 10 max-mag)))

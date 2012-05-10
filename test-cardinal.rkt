@@ -53,8 +53,10 @@
 (ck 110 "one hundred ten")
 (ck 120 "one hundred twenty")
 (ck 200 "two hundred")
+(ck 215 "two hundred fifteen")
 (ck 300 "three hundred")
 (ck 400 "four hundred")
+(ck 492 "four hundred ninety-two")
 (ck 500 "five hundred")
 (ck 600 "six hundred")
 (ck 700 "seven hundred")
@@ -75,4 +77,10 @@
 (ck 999999 "nine hundred ninety-nine thousand nine hundred ninety-nine")
 (ck 999999999 "nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine")
 (ck 1000000000 "one billion")
+(ck 999999999999999999999999999999999999999999999999999999999999999999
+    "nine hundred ninety-nine vigintillion nine hundred ninety-nine novemdecillion nine hundred ninety-nine octodecillion nine hundred ninety-nine septendecillion nine hundred ninety-nine sexdecillion nine hundred ninety-nine quindecillion nine hundred ninety-nine quattuordecillion nine hundred ninety-nine tredecillion nine hundred ninety-nine duodecillion nine hundred ninety-nine undecillion nine hundred ninety-nine decillion nine hundred ninety-nine nonillion nine hundred ninety-nine octillion nine hundred ninety-nine septillion nine hundred ninety-nine sextillion nine hundred ninety-nine quintillion nine hundred ninety-nine quadrillion nine hundred ninety-nine trillion nine hundred ninety-nine billion nine hundred ninety-nine million nine hundred ninety-nine thousand nine hundred ninety-nine")
 
+;; And that's the maximum number we can coerse.
+(check-exn exn:fail?
+           (lambda ()
+             (number->cardinal (add1 999999999999999999999999999999999999999999999999999999999999999999))))

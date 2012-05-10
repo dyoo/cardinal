@@ -15,7 +15,7 @@
    [else
     (define this-mag (mag10 n))
     (cond
-     [(> this-mag max-mag)
+     [(>= this-mag max-mag)
       (error 'number->cardinal "~s too large to count" n)]
      [else
       (define s (quotient this-mag 3))
@@ -83,7 +83,8 @@
     "septendecillion"
     "octodecillion"
     "novemdecillion"
-    "vigintillion"))
+    "vigintillion"
+    ))
 
 
 
@@ -97,4 +98,4 @@
            (loop (quotient n 10)
                  (add1 x))])))
 
-(define max-mag (* 3 (sub1 (vector-length scales))))
+(define max-mag (* 3 (vector-length scales)))

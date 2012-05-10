@@ -61,3 +61,12 @@ As of this writing, this value is:
 @interaction[#:eval my-eval
 maximum-countable-cardinal-number]
 }
+
+
+
+
+@section{Notes}
+
+Neil van Dyke's
+@link["http://www.neilvandyke.org/numspell-scheme/"]{numspell} library
+has richer functionality; I wish I'd seen it earlier.

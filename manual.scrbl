@@ -65,8 +65,17 @@ maximum-countable-cardinal-number]
 
 
 
-@section{Notes}
+@section{Related packages}
 
-Neil van Dyke's
-@link["http://www.neilvandyke.org/numspell-scheme/"]{numspell} library
-has richer functionality; I wish I'd seen it earlier.
+There are a few related packages on PLaneT:
+
+@itemize[
+@item{Neil van Dyke's
+@link["http://www.neilvandyke.org/numspell-scheme/"]{numspell}}
+
+@item{Doug Williams'
+@link["http://planet.racket-lang.org/display.ss?package=describe.plt&owner=williams"]{describe}}
+]
+
+Both offer richer functionality than this one, and I wish I'd seen
+these sooner!
